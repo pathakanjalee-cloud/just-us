@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f8f2ee" />
+  <meta name="theme-color" content="#fff8fb" />
   <title>Just Us — a tiny place for two</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,34 +27,38 @@
       <div class="room-grid"><section class="panel games-panel" id="gamesPanel">
         <div class="panel-title"><div><p class="eyebrow">PLAY TOGETHER</p><h3>Pick a game</h3></div><span class="live-pill">LIVE</span></div>
         <div class="game-tabs">
-          <button class="game-tab active" data-family="quick" data-game="ttt">⚡ Quick Games</button>
-          <button class="game-tab" data-family="together" data-game="trivia">💗 Together Games</button>
+          <button class="game-tab active" data-family="quick">⚡ Quick Games</button>
+          <button class="game-tab" data-family="together">💗 Together Games</button>
         </div>
-        <div class="family-picker" style="display:flex;gap:6px;flex-wrap:wrap;margin:-4px 0 12px">
-          <button class="tiny-btn" data-game="ttt">Tic Tac Toe</button><button class="tiny-btn" data-game="rps">Rock Paper Scissors</button><button class="tiny-btn" data-game="c4">Connect Four</button>
-          <button class="tiny-btn" data-game="trivia">Trivia Night</button><button class="tiny-btn" data-game="couples">Couple Questions</button><button class="tiny-btn" data-game="draw">Draw & Guess</button>
-        </div>
+        <div id="quickPicker" class="family-picker"><button class="tiny-btn active-game" data-game="ttt">Tic Tac Toe</button><button class="tiny-btn" data-game="rps">Rock Paper Scissors</button><button class="tiny-btn" data-game="c4">Connect Four</button></div>
+        <div id="togetherPicker" class="family-picker hidden"><button class="tiny-btn" data-game="trivia">Trivia Night</button><button class="tiny-btn" data-game="learn">Learn &amp; Grow</button><button class="tiny-btn" data-game="draw">Draw &amp; Guess</button></div>
         <div id="tttGame" class="game-box"><div class="game-info"><span id="tttTurn">Waiting for players…</span><button id="tttReset" class="tiny-btn">New game</button></div><div id="tttBoard" class="ttt-board"></div><p id="tttResult" class="game-result"></p></div>
         <div id="rpsGame" class="game-box hidden"><div class="game-info"><span id="rpsStatus">Choose your move.</span><button id="rpsReset" class="tiny-btn">New round</button></div><div class="rps-choices"><button class="choice" data-choice="rock">🪨<span>Rock</span></button><button class="choice" data-choice="paper">📄<span>Paper</span></button><button class="choice" data-choice="scissors">✂️<span>Scissors</span></button></div><p id="rpsResult" class="game-result"></p></div>
-        <div id="c4Game" class="game-box hidden"><div class="game-info"><span id="c4Turn">Waiting for players…</span><button id="c4Reset" class="tiny-btn">New game</button></div><div id="c4Board" class="c4-board"></div><p class="game-hint">Four in a row wins. Tap any empty slot in a column.</p></div>
+        <div id="c4Game" class="game-box hidden"><div class="game-info"><span id="c4Turn">Waiting for players…</span><button id="c4Reset" class="tiny-btn">New game</button></div><div id="c4Board" class="c4-board"></div><p class="game-hint">Four in a row wins. Tap an empty slot in a column.</p></div>
         <div id="triviaGame" class="game-box hidden"><div class="game-info"><span id="triviaStatus">Choose an answer.</span><button id="triviaNext" class="tiny-btn">Next question</button></div><div class="question-card"><span class="mini-label">TRIVIA NIGHT</span><h4 id="triviaQuestion"></h4><div id="triviaChoices" class="answer-grid"></div></div></div>
-        <div id="couplesGame" class="game-box hidden"><div class="game-info"><span id="coupleCount">1 / 6</span><button id="coupleNext" class="tiny-btn">Next question</button></div><div class="couple-card"><span>JUST BETWEEN US 💗</span><h4 id="coupleQuestion"></h4><p>Take turns answering out loud. No wrong answers.</p></div></div>
-        <div id="drawGame" class="game-box hidden"><div class="game-info"><span id="drawStatus">Waiting for your person…</span><div><button id="drawStart" class="tiny-btn">Start round</button><button id="clearDraw" class="tiny-btn" disabled>Clear</button></div></div><canvas id="drawCanvas" class="draw-canvas" aria-label="Shared drawing board"></canvas><p class="game-hint">One person draws; the other guesses in chat. Your strokes appear on both phones instantly.</p></div>
+        <div id="learnGame" class="game-box hidden">
+          <div class="game-info"><span>🌱 Today, together</span><span id="learnDate"></span></div>
+          <h3 id="learnTitle">Learn &amp; Grow</h3>
+          <p id="learnIntro" class="game-hint">A few fresh things to discover together today.</p>
+          <div id="learnStories" class="learn-stories"><div class="learn-loading">Loading today's stories…</div></div>
+          <button id="learnRefresh" class="tiny-btn">↻ Refresh</button>
+        </div>
+        <div id="drawGame class="game-box hidden"><div class="game-info"><span id="drawStatus">Waiting for your person…</span><div><button id="drawStart" class="tiny-btn">Start round</button><button id="clearDraw" class="tiny-btn" disabled>Clear</button></div></div><canvas id="drawCanvas" class="draw-canvas" aria-label="Shared drawing board"></canvas><p class="game-hint">One person draws; the other guesses in chat.</p></div>
       </section>
       <section class="panel chat-panel"><div class="panel-title"><div><p class="eyebrow">A LITTLE CHAT</p><h3>Say something</h3></div></div><div id="messages" class="messages"></div><form id="chatForm" class="chat-form"><input id="chatInput" maxlength="300" autocomplete="off" placeholder="Type something cute…" /><button class="send-btn" aria-label="Send">↗</button></form></section></div>
 
       <div class="media-grid">
         <section class="media-card">
-          <p class="eyebrow">MUSIC TOGETHER</p><h3>🎵 Spotify</h3><p>Paste a Spotify song, album or playlist link and open it together.</p>
+          <p class="eyebrow">MUSIC TOGETHER</p><h3>🎵 Spotify</h3><p>Paste a Spotify song, album or playlist link.</p>
           <form id="spotifyForm" class="media-form"><input id="spotifyUrl" placeholder="Paste a Spotify link…" inputmode="url"/><button class="btn btn-dark small">Load</button></form>
-          <iframe id="spotifyFrame" class="media-frame spotify-frame" src="about:blank" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify"></iframe>
-          <div id="spotifyStatus" class="sync-row"><span>Music sounds better with you ♡</span></div>
+          <iframe id="spotifyFrame" class="media-frame spotify-frame" title="Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+          <div id="spotifyStatus" class="sync-row"><span>Load music to start listening together ♡</span></div>
         </section>
         <section class="media-card">
-          <p class="eyebrow">WATCH TOGETHER</p><h3>🎬 YouTube</h3><p>Load the same video on both phones. Voice chat can stay on while you watch.</p>
+          <p class="eyebrow">WATCH TOGETHER</p><h3>🎬 YouTube</h3><p>Load the same video on both phones. Play, pause and seek together.</p>
           <form id="youtubeForm" class="media-form"><input id="youtubeUrl" placeholder="Paste a YouTube link…" inputmode="url"/><button class="btn btn-dark small">Load</button></form>
-          <div class="youtube-wrap"><iframe id="youtubeFrame" class="youtube-frame" src="about:blank" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Watch Together"></iframe></div>
-          <div id="youtubeStatus" class="sync-row"><span>Load a video to start watching together.</span><span>Voice chat stays available.</span></div>
+          <div class="youtube-wrap"><div id="youtubePlayer" class="youtube-frame"></div></div>
+          <div id="youtubeStatus" class="sync-row"><span>Load a video to start watching together.</span><span>Voice stays available.</span></div>
         </section>
       </div>
       <p class="privacy-note">Your room is temporary and invite-only. No account is needed.</p>
@@ -63,5 +67,7 @@
   <div id="nameModal" class="modal hidden"><div class="modal-card"><button id="closeModal" class="modal-close">×</button><p class="eyebrow">JUST BETWEEN YOU TWO</p><h2>What's your name?</h2><p>It will only be used inside this room.</p><form id="nameForm"><input id="nameInput" maxlength="24" required placeholder="Your name" autocomplete="name" /><button class="btn btn-dark" type="submit">Continue</button></form></div></div>
   <div id="joinModal" class="modal hidden"><div class="modal-card"><button id="closeJoinModal" class="modal-close">×</button><p class="eyebrow">COME ON IN</p><h2>Enter the room code</h2><p>Ask your person to send you their invite link or 6-letter code.</p><form id="joinForm"><input id="joinCodeInput" maxlength="6" required placeholder="ABC123" autocapitalize="characters" /><button class="btn btn-dark" type="submit">Join room</button></form></div></div>
   <div id="toast" class="toast"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://www.youtube.com/iframe_api"></script><script src="app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="app.js"></script>
 </body></html>
