@@ -1,73 +1,76 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#fff8fb" />
-  <title>Just Us — a tiny place for two</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#fff8fb" />
+<title>Just Us — play, talk, connect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Caveat:wght@500;600&family=Pacifico&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-  <header class="topbar"><a class="brand" href="./">just us</a><div class="top-actions"><button id="soundToggle" class="sound-btn">🔊 Sound on</button><button id="gamesNav" class="text-btn">Games</button></div></header>
-  <main>
-    <section id="homeView" class="hero">
-      <p class="eyebrow">A TINY PLACE FOR TWO</p><h1>Just you.<br><span>Just them.</span><br>Just play.</h1>
-      <p class="subhead">Create a room, share the link, and turn any ordinary moment into game time.</p>
-      <div class="hero-actions"><button id="createRoomBtn" class="btn btn-dark">Create a room</button><button id="joinRoomBtn" class="btn btn-light">Join a room</button></div>
-      <div class="mood-row"><span>PICK A MOOD</span><div class="moods"><button class="mood active" data-mood="rose">rose</button><button class="mood" data-mood="lavender">lavender</button><button class="mood" data-mood="peach">peach</button></div></div>
-    </section>
-    <section id="roomView" class="room-view hidden">
-      <div class="room-head"><div><p class="eyebrow">YOUR LITTLE ROOM</p><h2 id="roomTitle">Just Us</h2><p class="room-status"><span id="presenceDot" class="dot"></span><span id="presenceText">Connecting…</span></p></div><button id="leaveRoomBtn" class="icon-btn" title="Leave room">×</button></div>
-      <div class="share-card"><div><p class="mini-label">ROOM CODE</p><strong id="roomCode">------</strong></div><button id="copyLinkBtn" class="btn btn-light small">Copy invite link</button></div>
-      <section class="voice-card" aria-label="Voice chat"><div><p class="mini-label">VOICE CHAT</p><h3>Talk together</h3><p id="voiceStatus">Join the call when you’re ready. Your microphone stays off until you join.</p></div><div class="voice-actions"><button id="joinVoiceBtn" class="btn btn-dark small">🎙️ Join voice</button><button id="muteVoiceBtn" class="btn btn-light small hidden">🔇 Mute</button><button id="leaveVoiceBtn" class="btn btn-light small hidden">☎️ Leave call</button></div><audio id="remoteAudio" autoplay playsinline></audio></section>
-      <div class="room-grid"><section class="panel games-panel" id="gamesPanel">
-        <div class="panel-title"><div><p class="eyebrow">PLAY TOGETHER</p><h3>Pick a game</h3></div><span class="live-pill">LIVE</span></div>
-        <div class="game-tabs">
-          <button class="game-tab active" data-family="quick">⚡ Quick Games</button>
-          <button class="game-tab" data-family="together">💗 Together Games</button>
-        </div>
-        <div id="quickPicker" class="family-picker"><button class="tiny-btn active-game" data-game="ttt">Tic Tac Toe</button><button class="tiny-btn" data-game="rps">Rock Paper Scissors</button><button class="tiny-btn" data-game="c4">Connect Four</button></div>
-        <div id="togetherPicker" class="family-picker hidden"><button class="tiny-btn" data-game="trivia">Trivia Night</button><button class="tiny-btn" data-game="learn">Learn &amp; Grow</button><button class="tiny-btn" data-game="draw">Draw &amp; Guess</button></div>
-        <div id="tttGame" class="game-box"><div class="game-info"><span id="tttTurn">Waiting for players…</span><button id="tttReset" class="tiny-btn">New game</button></div><div id="tttBoard" class="ttt-board"></div><p id="tttResult" class="game-result"></p></div>
-        <div id="rpsGame" class="game-box hidden"><div class="game-info"><span id="rpsStatus">Choose your move.</span><button id="rpsReset" class="tiny-btn">New round</button></div><div class="rps-choices"><button class="choice" data-choice="rock">🪨<span>Rock</span></button><button class="choice" data-choice="paper">📄<span>Paper</span></button><button class="choice" data-choice="scissors">✂️<span>Scissors</span></button></div><p id="rpsResult" class="game-result"></p></div>
-        <div id="c4Game" class="game-box hidden"><div class="game-info"><span id="c4Turn">Waiting for players…</span><button id="c4Reset" class="tiny-btn">New game</button></div><div id="c4Board" class="c4-board"></div><p class="game-hint">Four in a row wins. Tap an empty slot in a column.</p></div>
-        <div id="triviaGame" class="game-box hidden"><div class="game-info"><span id="triviaStatus">Choose an answer.</span><button id="triviaNext" class="tiny-btn">Next question</button></div><div class="question-card"><span class="mini-label">TRIVIA NIGHT</span><h4 id="triviaQuestion"></h4><div id="triviaChoices" class="answer-grid"></div></div></div>
-        <div id="learnGame" class="game-box hidden">
-          <div class="game-info"><span>🌱 Today, together</span><span id="learnDate"></span></div>
-          <h3 id="learnTitle">Learn &amp; Grow</h3>
-          <p id="learnIntro" class="game-hint">A few fresh things to discover together today.</p>
-          <div id="learnStories" class="learn-stories"><div class="learn-loading">Loading today's stories…</div></div>
-          <button id="learnRefresh" class="tiny-btn">↻ Refresh</button>
-        </div>
-        <div id="drawGame class="game-box hidden"><div class="game-info"><span id="drawStatus">Waiting for your person…</span><div><button id="drawStart" class="tiny-btn">Start round</button><button id="clearDraw" class="tiny-btn" disabled>Clear</button></div></div><canvas id="drawCanvas" class="draw-canvas" aria-label="Shared drawing board"></canvas><p class="game-hint">One person draws; the other guesses in chat.</p></div>
-      </section>
-      <section class="panel chat-panel"><div class="panel-title"><div><p class="eyebrow">A LITTLE CHAT</p><h3>Say something</h3></div></div><div id="messages" class="messages"></div><form id="chatForm" class="chat-form"><input id="chatInput" maxlength="300" autocomplete="off" placeholder="Type something cute…" /><button class="send-btn" aria-label="Send">↗</button></form></section></div>
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<header class="topbar"><a class="brand" href="./">just us <span>♡</span></a><div class="top-actions"><button id="soundToggle" class="sound-btn">🔊 Sound on</button><button id="gamesNav" class="text-btn">Games</button></div></header>
+<main>
+<section id="homeView" class="hero">
+<p class="eyebrow">PLAY • TALK • LAUGH • TOGETHER</p>
+<h1>Just you.<br><span>Just them.</span><br>Just Us.</h1>
+<p class="subhead">A private little place for friends, partners and family to play games, chat and hang out together.</p>
+<div class="hero-actions"><button id="createRoomBtn" class="btn btn-dark">Create a room</button><button id="joinRoomBtn" class="btn btn-light">Join a room</button></div>
+<div class="feature-strip"><span>👥 2–10 players</span><span>🎮 Multiplayer</span><span>💬 Live chat</span><span>🎙️ Voice</span></div>
+</section>
 
-      <div class="media-grid">
-        <section class="media-card">
-          <p class="eyebrow">MUSIC TOGETHER</p><h3>🎵 Spotify</h3><p>Paste a Spotify song, album or playlist link.</p>
-          <form id="spotifyForm" class="media-form"><input id="spotifyUrl" placeholder="Paste a Spotify link…" inputmode="url"/><button class="btn btn-dark small">Load</button></form>
-          <iframe id="spotifyFrame" class="media-frame spotify-frame" title="Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-          <div id="spotifyStatus" class="sync-row"><span>Load music to start listening together ♡</span></div>
-        </section>
-        <section class="media-card">
-          <p class="eyebrow">WATCH TOGETHER</p><h3>🎬 YouTube</h3><p>Load the same video on both phones. Play, pause and seek together.</p>
-          <form id="youtubeForm" class="media-form"><input id="youtubeUrl" placeholder="Paste a YouTube link…" inputmode="url"/><button class="btn btn-dark small">Load</button></form>
-          <div class="youtube-wrap"><div id="youtubePlayer" class="youtube-frame"></div></div>
-          <div id="youtubeStatus" class="sync-row"><span>Load a video to start watching together.</span><span>Voice stays available.</span></div>
-        </section>
-      </div>
-      <p class="privacy-note">Your room is temporary and invite-only. No account is needed.</p>
-    </section>
-  </main>
-  <div id="nameModal" class="modal hidden"><div class="modal-card"><button id="closeModal" class="modal-close">×</button><p class="eyebrow">JUST BETWEEN YOU TWO</p><h2>What's your name?</h2><p>It will only be used inside this room.</p><form id="nameForm"><input id="nameInput" maxlength="24" required placeholder="Your name" autocomplete="name" /><button class="btn btn-dark" type="submit">Continue</button></form></div></div>
-  <div id="joinModal" class="modal hidden"><div class="modal-card"><button id="closeJoinModal" class="modal-close">×</button><p class="eyebrow">COME ON IN</p><h2>Enter the room code</h2><p>Ask your person to send you their invite link or 6-letter code.</p><form id="joinForm"><input id="joinCodeInput" maxlength="6" required placeholder="ABC123" autocapitalize="characters" /><button class="btn btn-dark" type="submit">Join room</button></form></div></div>
-  <div id="toast" class="toast"></div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script src="app.js"></script>
+<section id="roomView" class="room-view hidden">
+<div class="room-head"><div><p class="eyebrow">YOUR ROOM</p><h2 id="roomTitle">Just Us</h2><p class="room-status"><span id="presenceDot" class="dot"></span><span id="presenceText">Connecting…</span></p></div><button id="leaveRoomBtn" class="icon-btn" title="Leave room">×</button></div>
+<div class="share-card"><div><p class="mini-label">ROOM CODE</p><strong id="roomCode">------</strong><p class="tiny-note">Share the link or code. Up to 10 people can join.</p></div><button id="copyLinkBtn" class="btn btn-light small">Copy invite link</button></div>
+
+<div class="lobby-card"><div class="panel-title"><div><p class="eyebrow">ROOM LOBBY</p><h3>Who's here?</h3></div><span id="playerCount" class="live-pill">0 / 10</span></div><div id="playerList" class="player-list"></div><div class="lobby-actions"><button id="readyBtn" class="btn btn-dark small">✓ Ready</button><button id="randomGameBtn" class="btn btn-light small">🎲 Surprise us</button></div></div>
+
+<section class="voice-card" aria-label="Voice chat"><div><p class="mini-label">VOICE CHAT</p><h3>Talk together</h3><p id="voiceStatus">Join the call when you’re ready. Your microphone stays off until you join.</p></div><div class="voice-actions"><button id="joinVoiceBtn" class="btn btn-dark small">🎙️ Join voice</button><button id="muteVoiceBtn" class="btn btn-light small hidden">🔇 Mute</button><button id="leaveVoiceBtn" class="btn btn-light small hidden">☎️ Leave call</button></div><audio id="remoteAudio" autoplay playsinline></audio></section>
+
+<div class="room-grid">
+<section class="panel games-panel" id="gamesPanel">
+<div class="panel-title"><div><p class="eyebrow">PLAY TOGETHER</p><h3>Pick a game</h3></div><span class="live-pill">LIVE</span></div>
+<div class="game-tabs"><button class="game-tab active" data-family="quick">⚡ Quick Games</button><button class="game-tab" data-family="party">👥 Multiplayer Party</button><button class="game-tab" data-family="together">💗 Together</button></div>
+<div id="quickPicker" class="family-picker"><button class="tiny-btn active-game" data-game="ttt">⭕ Tic Tac Toe</button><button class="tiny-btn" data-game="rps">✊ Rock Paper Scissors</button><button class="tiny-btn" data-game="c4">🔴 Connect Four</button><button class="tiny-btn" data-game="memory">🧠 Memory Match</button></div>
+<div id="partyPicker" class="family-picker hidden"><button class="tiny-btn" data-game="trivia">🧠 Trivia Night</button><button class="tiny-btn" data-game="pictionary">🎨 Pictionary</button><button class="tiny-btn" data-game="charades">🎭 Charades</button><button class="tiny-btn" data-game="ludo">🎲 Ludo</button><button class="tiny-btn" data-game="uno">🃏 UNO-style</button><button class="tiny-btn" data-game="song">🎵 Guess the Song</button><button class="tiny-btn" data-game="whoami">🕵️ Who Am I?</button></div>
+<div id="togetherPicker" class="family-picker hidden"><button class="tiny-btn" data-game="learn">🌱 Learn &amp; Grow</button><button class="tiny-btn" data-game="questions">💌 Daily Questions</button><button class="tiny-btn" data-game="draw">✏️ Draw &amp; Guess</button><button class="tiny-btn" data-game="wouldyou">🤔 Would You Rather</button></div>
+
+<div id="tttGame" class="game-box"><div class="game-info"><span id="tttTurn">Waiting for players…</span><button id="tttReset" class="tiny-btn">New game</button></div><div id="tttBoard" class="ttt-board"></div><p id="tttResult" class="game-result"></p></div>
+<div id="rpsGame" class="game-box hidden"><div class="game-info"><span id="rpsStatus">Choose your move.</span><button id="rpsReset" class="tiny-btn">New round</button></div><div class="rps-choices"><button class="choice" data-choice="rock">🪨<span>Rock</span></button><button class="choice" data-choice="paper">📄<span>Paper</span></button><button class="choice" data-choice="scissors">✂️<span>Scissors</span></button></div><p id="rpsResult" class="game-result"></p></div>
+<div id="c4Game" class="game-box hidden"><div class="game-info"><span id="c4Turn">Waiting for players…</span><button id="c4Reset" class="tiny-btn">New game</button></div><div id="c4Board" class="c4-board"></div><p class="game-hint">Four in a row wins. Tap a column.</p></div>
+<div id="memoryGame" class="game-box hidden"><div class="game-info"><span>🧠 Memory Match</span><button id="memoryReset" class="tiny-btn">New game</button></div><div id="memoryBoard" class="memory-board"></div><p id="memoryStatus" class="game-hint">Find all the matching pairs.</p></div>
+<div id="triviaGame" class="game-box hidden"><div class="game-info"><span id="triviaStatus">Choose an answer.</span><button id="triviaNext" class="tiny-btn">Next question</button></div><div class="question-card"><span class="mini-label">TRIVIA NIGHT</span><h4 id="triviaQuestion"></h4><div id="triviaChoices" class="answer-grid"></div><p id="triviaScores" class="score-line"></p></div></div>
+<div id="pictionaryGame" class="game-box hidden"><div class="game-info"><span>🎨 Pictionary</span><button id="pictionaryStart" class="tiny-btn">New prompt</button></div><div class="prompt-card"><span class="mini-label">DRAW THIS</span><strong id="pictionaryWord">Tap New prompt</strong><span id="pictionaryTimer">60s</span></div><canvas id="pictionaryCanvas" class="draw-canvas"></canvas><p class="game-hint">One person draws; everyone else guesses in chat.</p></div>
+<div id="charadesGame" class="game-box hidden"><div class="feature-game"><span class="big-emoji">🎭</span><h3>Charades</h3><p id="charadesText">Tap the button to get a secret prompt.</p><button id="charadesBtn" class="btn btn-dark small">Give me a prompt</button></div></div>
+<div id="ludoGame" class="game-box hidden"><div class="feature-game"><span class="big-emoji">🎲</span><h3>Ludo</h3><p>Multiplayer Ludo is part of the party-game lineup. The room supports up to 10 people; a Ludo match will use 2–4 players.</p><span class="coming-pill">NEXT GAME BUILD</span></div></div>
+<div id="unoGame" class="game-box hidden"><div class="feature-game"><span class="big-emoji">🃏</span><h3>UNO-style</h3><p>A colourful multiplayer card game for 2–10 people is planned here. We'll keep the rules and artwork original.</p><span class="coming-pill">NEXT GAME BUILD</span></div></div>
+<div id="songGame" class="game-box hidden"><div class="feature-game"><span class="big-emoji">🎵</span><h3>Guess the Song</h3><p>Play a song in Music Together, then let the room guess. Full scoring mode coming next.</p><span class="coming-pill">NEXT GAME BUILD</span></div></div>
+<div id="whoamiGame" class="game-box hidden"><div class="feature-game"><span class="big-emoji">🕵️</span><h3>Who Am I?</h3><p>One secret identity, yes/no questions, and a room full of guesses.</p><button id="whoamiBtn" class="btn btn-dark small">Give me a card</button><p id="whoamiText" class="game-result"></p></div></div>
+<div id="learnGame" class="game-box hidden"><div class="game-info"><span>🌱 Today, together</span><span id="learnDate"></span></div><h3>Learn &amp; Grow</h3><p id="learnIntro" class="game-hint">A few fresh things to discover together today.</p><div id="learnStories" class="learn-stories"><div class="learn-loading">Loading today's stories…</div></div><button id="learnRefresh" class="tiny-btn">↻ Refresh</button></div>
+<div id="questionsGame" class="game-box hidden"><div class="question-card"><span class="mini-label">DAILY QUESTION</span><h4 id="dailyQuestion"></h4><button id="newQuestion" class="btn btn-dark small">Another one</button></div></div>
+<div id="drawGame" class="game-box hidden"><div class="game-info"><span id="drawStatus">Waiting for your person…</span><div><button id="drawStart" class="tiny-btn">Start round</button><button id="clearDraw" class="tiny-btn" disabled>Clear</button></div></div><canvas id="drawCanvas" class="draw-canvas"></canvas><p class="game-hint">One person draws; the other guesses in chat.</p></div>
+<div id="wouldyouGame" class="game-box hidden"><div class="question-card"><span class="mini-label">WOULD YOU RATHER</span><h4 id="wyrQuestion"></h4><div class="wyr-grid"><button id="wyrA"></button><button id="wyrB"></button></div><p id="wyrResult" class="score-line"></p></div></div>
+</section>
+
+<section class="panel chat-panel"><div class="panel-title"><div><p class="eyebrow">ROOM CHAT</p><h3>Say something</h3></div><span class="live-pill">LIVE</span></div>
+<div id="messages" class="messages"></div>
+<div class="chat-tools"><div class="tool-row"><button class="tool-btn" data-sticker="🥰">🥰</button><button class="tool-btn" data-sticker="😘">😘</button><button class="tool-btn" data-sticker="🫶">🫶</button><button class="tool-btn" data-sticker="😂">😂</button><button class="tool-btn" data-sticker="🥹">🥹</button><button class="tool-btn" data-sticker="💗">💗</button><button class="tool-btn" data-sticker="🧸">🧸</button><button class="tool-btn" data-sticker="🌷">🌷</button></div>
+<div class="tool-row action-row"><button class="action-btn" data-effect="heart">💗 Pop heart</button><button class="action-btn" data-effect="balloon">🎈 Pop balloon</button><button class="action-btn" data-effect="sparkle">✨ Sparkle</button></div>
+<div class="font-row"><label for="fontSelect">Aa</label><select id="fontSelect"><option value="normal">Clean</option><option value="script">Handwritten</option><option value="elegant">Elegant</option><option value="playful">Playful</option><option value="mono">Typewriter</option></select></div></div>
+<form id="chatForm" class="chat-form"><input id="chatInput" maxlength="300" autocomplete="off" placeholder="Type something cute…" /><button class="send-btn" aria-label="Send">↗</button></form></section>
+</div>
+
+<div class="media-grid"><section class="media-card"><p class="eyebrow">MUSIC TOGETHER</p><h3>🎵 Spotify</h3><p>Paste a Spotify song, album or playlist link.</p><form id="spotifyForm" class="media-form"><input id="spotifyUrl" placeholder="Paste a Spotify link…" inputmode="url"/><button class="btn btn-dark small">Load</button></form><iframe id="spotifyFrame" class="media-frame spotify-frame" title="Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><div id="spotifyStatus" class="sync-row"><span>Load music to start listening together ♡</span></div></section>
+<section class="media-card"><p class="eyebrow">WATCH TOGETHER</p><h3>🎬 YouTube</h3><p>Load the same video on both phones. Play, pause and seek together.</p><form id="youtubeForm" class="media-form"><input id="youtubeUrl" placeholder="Paste a YouTube link…" inputmode="url"/><button class="btn btn-dark small">Load</button></form><div class="youtube-wrap"><div id="youtubePlayer" class="youtube-frame"></div></div><div id="youtubeStatus" class="sync-row"><span>Load a video to start watching together.</span><span>Voice stays available.</span></div></section></div>
+<p class="privacy-note">Private room • no account needed • maximum 10 people</p>
+</section>
+</main>
+
+<div id="nameModal" class="modal hidden"><div class="modal-card"><button id="closeModal" class="modal-close">×</button><p class="eyebrow">WELCOME TO JUST US</p><h2>What's your name?</h2><p>It will only be shown inside this room.</p><form id="nameForm"><input id="nameInput" maxlength="24" required placeholder="Your name" autocomplete="name" /><button class="btn btn-dark" type="submit">Continue</button></form></div></div>
+<div id="joinModal" class="modal hidden"><div class="modal-card"><button id="closeJoinModal" class="modal-close">×</button><p class="eyebrow">COME ON IN</p><h2>Enter the room code</h2><p>Ask your person to send you their invite link or room code.</p><form id="joinForm"><input id="joinCodeInput" maxlength="6" required placeholder="ABC123" autocapitalize="characters" /><button class="btn btn-dark" type="submit">Join room</button></form></div></div>
+<div id="toast" class="toast"></div><div id="effectsLayer" class="effects-layer"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="https://www.youtube.com/iframe_api"></script><script src="app.js"></script>
 </body></html>
