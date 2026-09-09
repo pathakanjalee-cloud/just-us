@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f2ee" />
+  <title>Just Us — a tiny place for two</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar"><a class="brand" href="./">just us</a><div class="top-actions"><button id="soundToggle" class="sound-btn">🔊 Sound on</button><button id="gamesNav" class="text-btn">Games</button></div></header>
+  <main>
+    <section id="homeView" class="hero">
+      <p class="eyebrow">A TINY PLACE FOR TWO</p><h1>Just you.<br><span>Just them.</span><br>Just play.</h1>
+      <p class="subhead">Create a room, share the link, and turn any ordinary moment into game time.</p>
+      <div class="hero-actions"><button id="createRoomBtn" class="btn btn-dark">Create a room</button><button id="joinRoomBtn" class="btn btn-light">Join a room</button></div>
+      <div class="mood-row"><span>PICK A MOOD</span><div class="moods"><button class="mood active" data-mood="rose">rose</button><button class="mood" data-mood="lavender">lavender</button><button class="mood" data-mood="peach">peach</button></div></div>
+    </section>
+    <section id="roomView" class="room-view hidden">
+      <div class="room-head"><div><p class="eyebrow">YOUR LITTLE ROOM</p><h2 id="roomTitle">Just Us</h2><p class="room-status"><span id="presenceDot" class="dot"></span><span id="presenceText">Connecting…</span></p></div><button id="leaveRoomBtn" class="icon-btn" title="Leave room">×</button></div>
+      <div class="share-card"><div><p class="mini-label">ROOM CODE</p><strong id="roomCode">------</strong></div><button id="copyLinkBtn" class="btn btn-light small">Copy invite link</button></div>
+      <section class="voice-card" aria-label="Voice chat"><div><p class="mini-label">VOICE CHAT</p><h3>Talk together</h3><p id="voiceStatus">Join the call when you’re ready. Your microphone stays off until you join.</p></div><div class="voice-actions"><button id="joinVoiceBtn" class="btn btn-dark small">🎙️ Join voice</button><button id="muteVoiceBtn" class="btn btn-light small hidden">🔇 Mute</button><button id="leaveVoiceBtn" class="btn btn-light small hidden">☎️ Leave call</button></div><audio id="remoteAudio" autoplay playsinline></audio></section>
+      <div class="room-grid"><section class="panel games-panel" id="gamesPanel">
+        <div class="panel-title"><div><p class="eyebrow">PLAY TOGETHER</p><h3>Pick a game</h3></div><span class="live-pill">LIVE</span></div>
+        <div class="game-tabs">
+          <button class="game-tab active" data-game="ttt">Tic Tac Toe</button><button class="game-tab" data-game="rps">Rock Paper Scissors</button><button class="game-tab" data-game="c4">Connect Four</button><button class="game-tab" data-game="trivia">Trivia Night</button><button class="game-tab" data-game="couples">Couples Questions</button><button class="game-tab" data-game="draw">Draw & Guess</button>
+        </div>
+        <div id="tttGame" class="game-box"><div class="game-info"><span id="tttTurn">Waiting for players…</span><button id="tttReset" class="tiny-btn">New game</button></div><div id="tttBoard" class="ttt-board"></div><p id="tttResult" class="game-result"></p></div>
+        <div id="rpsGame" class="game-box hidden"><div class="game-info"><span id="rpsStatus">Choose your move.</span><button id="rpsReset" class="tiny-btn">New round</button></div><div class="rps-choices"><button class="choice" data-choice="rock">🪨<span>Rock</span></button><button class="choice" data-choice="paper">📄<span>Paper</span></button><button class="choice" data-choice="scissors">✂️<span>Scissors</span></button></div><p id="rpsResult" class="game-result"></p></div>
+        <div id="c4Game" class="game-box hidden"><div class="game-info"><span id="c4Turn">Waiting for players…</span><button id="c4Reset" class="tiny-btn">New game</button></div><div id="c4Board" class="c4-board"></div><p class="game-hint">Four in a row wins. Tap any empty slot in a column.</p></div>
+        <div id="triviaGame" class="game-box hidden"><div class="game-info"><span id="triviaStatus">Choose an answer.</span><button id="triviaNext" class="tiny-btn">Next question</button></div><div class="question-card"><span class="mini-label">TRIVIA NIGHT</span><h4 id="triviaQuestion"></h4><div id="triviaChoices" class="answer-grid"></div></div></div>
+        <div id="couplesGame" class="game-box hidden"><div class="game-info"><span id="coupleCount">1 / 6</span><button id="coupleNext" class="tiny-btn">Next question</button></div><div class="couple-card"><span>JUST BETWEEN US 💗</span><h4 id="coupleQuestion"></h4><p>Take turns answering out loud. No wrong answers.</p></div></div>
+        <div id="drawGame" class="game-box hidden"><div class="game-info"><span id="drawStatus">Waiting for your person…</span><div><button id="drawStart" class="tiny-btn">Start round</button><button id="clearDraw" class="tiny-btn" disabled>Clear</button></div></div><canvas id="drawCanvas" class="draw-canvas" aria-label="Shared drawing board"></canvas><p class="game-hint">One person draws; the other guesses in chat. Your strokes appear on both phones instantly.</p></div>
+      </section>
+      <section class="panel chat-panel"><div class="panel-title"><div><p class="eyebrow">A LITTLE CHAT</p><h3>Say something</h3></div></div><div id="messages" class="messages"></div><form id="chatForm" class="chat-form"><input id="chatInput" maxlength="300" autocomplete="off" placeholder="Type something cute…" /><button class="send-btn" aria-label="Send">↗</button></form></section></div>
+      <p class="privacy-note">Your room is temporary and invite-only. No account is needed.</p>
+    </section>
+  </main>
+  <div id="nameModal" class="modal hidden"><div class="modal-card"><button id="closeModal" class="modal-close">×</button><p class="eyebrow">JUST BETWEEN YOU TWO</p><h2>What's your name?</h2><p>It will only be used inside this room.</p><form id="nameForm"><input id="nameInput" maxlength="24" required placeholder="Your name" autocomplete="name" /><button class="btn btn-dark" type="submit">Continue</button></form></div></div>
+  <div id="joinModal" class="modal hidden"><div class="modal-card"><button id="closeJoinModal" class="modal-close">×</button><p class="eyebrow">COME ON IN</p><h2>Enter the room code</h2><p>Ask your person to send you their invite link or 6-letter code.</p><form id="joinForm"><input id="joinCodeInput" maxlength="6" required placeholder="ABC123" autocapitalize="characters" /><button class="btn btn-dark" type="submit">Join room</button></form></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="app.js"></script>
+</body></html>
