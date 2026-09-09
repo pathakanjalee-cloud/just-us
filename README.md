@@ -17,4 +17,4 @@ This is a static site. Upload the contents of this folder to Vercel Drop.
 The Supabase Project URL and Publishable key are already configured in `app.js`. The publishable key is intended for browser use; do not put a Supabase secret/service-role key into this file.
 
 ## Important
-Realtime uses Supabase Broadcast/Presence, so no database table or SQL migration is required for this version.
+Realtime uses Supabase Broadcast/Presence, so no database table or SQL migration is required for this version. Updated 
